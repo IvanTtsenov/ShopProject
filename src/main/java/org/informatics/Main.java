@@ -5,6 +5,7 @@ package org.informatics;
 //Git → Pull — вместо git pull//
 public class Main {
     public static void main(String[] args) {
+
         System.out.println("Testing commits!");
         }
     }
