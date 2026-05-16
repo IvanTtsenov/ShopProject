@@ -4,9 +4,7 @@ import org.informatics.data.Goods;
 import org.informatics.data.Receipt;
 import org.informatics.service.ReceiptService;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class ReceiptServiceImpl implements ReceiptService {
     @Override
@@ -25,6 +23,16 @@ public class ReceiptServiceImpl implements ReceiptService {
                 )
         {
                 outputStream.writeObject(receipt);
+        }
+    }
+    @Override
+    public Receipt deserializeObj(String filename) throws IOException, ClassNotFoundException {
+        try (
+                FileInputStream fileInputStream = new FileInputStream(filename);
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                )
+        {
+            return (Receipt) objectInputStream.readObject();
         }
     }
 }

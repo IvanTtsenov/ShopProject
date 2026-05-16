@@ -22,5 +22,13 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            receiptService.deserializeObj(filename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
     }

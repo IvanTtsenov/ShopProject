@@ -1,9 +1,10 @@
 package org.informatics.data;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Cashier {
+public class Cashier implements Serializable {
     private final UUID uuid;
     private String name;
     private double wage;
