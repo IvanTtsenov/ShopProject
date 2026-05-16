@@ -1,0 +1,57 @@
+package org.informatics.data;
+
+import java.util.Objects;
+import java.util.UUID;
+
+public class Cashier {
+    private final UUID uuid;
+    private String name;
+    private double wage;
+
+    public Cashier(String name, double wage) {
+        this.uuid = UUID.randomUUID();
+        this.name = name;
+        this.wage = wage;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getWage() {
+        return wage;
+    }
+
+    public void setWage(double wage) {
+        this.wage = wage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Cashier cashier = (Cashier) o;
+        return Objects.equals(uuid, cashier.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(uuid);
+    }
+
+    @Override
+    public String toString() {
+        return "Cashier{" +
+                "uuid=" + uuid +
+                ", name='" + name + '\'' +
+                ", wage=" + wage +
+                '}';
+    }
+}
