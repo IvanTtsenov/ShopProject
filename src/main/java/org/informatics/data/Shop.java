@@ -28,11 +28,6 @@ public class Shop {
         return cashiers;
     }
 
-    public void addCashier(Cashier cashier) {
-        cashiers.add(cashier);
-    }
-
-
     public Map<Goods, Integer> getDeliveredProducts() {
         return deliveredProducts;
     }

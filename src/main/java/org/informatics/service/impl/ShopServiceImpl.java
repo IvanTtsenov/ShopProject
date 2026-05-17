@@ -10,6 +10,10 @@ import java.util.Map;
 
 public class ShopServiceImpl implements ShopService {
     @Override
+    public void addCashiers(Shop shop,Cashier cashier){
+        shop.getCashiers().add(cashier);
+    }
+    @Override
     public void addDeliveredProduct(Shop shop, Goods goods) {
         shop.getDeliveredProducts().put(goods, goods.getQuantity());
     }

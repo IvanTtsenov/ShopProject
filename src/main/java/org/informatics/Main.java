@@ -1,13 +1,12 @@
 package org.informatics;
 
-import org.informatics.data.CashRegister;
-import org.informatics.data.Cashier;
-import org.informatics.data.Goods;
-import org.informatics.data.Receipt;
+import org.informatics.data.*;
 import org.informatics.service.CashRegisterService;
 import org.informatics.service.ReceiptService;
+import org.informatics.service.ShopService;
 import org.informatics.service.impl.CashRegisterServiceImpl;
 import org.informatics.service.impl.ReceiptServiceImpl;
+import org.informatics.service.impl.ShopServiceImpl;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -75,6 +74,12 @@ public class Main {
         System.out.println("Total rpice: ");
         receiptService.calculateTotalPrice(receipt1);
         System.out.println(receipt1);
+
+        Shop shop = new Shop();
+        System.out.println("Shop stringify:");
+        ShopService shopService = new ShopServiceImpl();
+        shopService.addCashiers(shop,cashier1);
+        System.out.println(shop);
 
 
 
