@@ -13,7 +13,8 @@ public class ReceiptServiceImpl implements ReceiptService {
         for (Goods item : receipt.getGoods()){
             price += item.getSellingPrice() * item.getQuantity();
         }
-        return  price;
+        receipt.setTotalPrice(price);
+        return receipt.getTotalPrice();
     }
     @Override
     public void addGoods(Receipt receipt,Goods good){

@@ -24,6 +24,12 @@ public class Main {
                 true,
                 LocalDate.of(2026, 5, 27),
                 5);
+        Goods goods2 = new Goods(
+                "Moreni",
+                1.5,
+                true,
+                LocalDate.of(2026, 5, 27),
+                2);
 
 //        Goods goods2 = new Goods(
 //                "Bread",
@@ -65,8 +71,11 @@ public class Main {
         Receipt receipt1 = new Receipt(cashier1);
         ReceiptService receiptService = new ReceiptServiceImpl();
         receiptService.addGoods(receipt1,goods1);
+        receiptService.addGoods(receipt1,goods2);
         System.out.println("Total rpice: ");
-        System.out.println(receiptService.calculateTotalPrice(receipt1));
+        receiptService.calculateTotalPrice(receipt1);
+        System.out.println(receipt1);
+
 
 
 
