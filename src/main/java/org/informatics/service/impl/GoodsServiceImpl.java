@@ -31,17 +31,17 @@ public class GoodsServiceImpl implements GoodsService {
             throw new ExpiredGoodsException(goods.getName() + " has expired on: " + goods.getExpiryDate());
         }
 
-        long days = daysUntilExpiry(goods);
+        long daysUntilExpiry = daysUntilExpiry(goods);
         double price;
 
         if (goods.isEdible()) {
             price = goods.getInitialPrice() * markUpIfEdible;
-            if (days < maxDaysBeforeExpDiscount) {
+            if (daysUntilExpiry < maxDaysBeforeExpDiscount) {
                 price *= discountIfEdible;
             }
         } else {
             price = goods.getInitialPrice() * markupIfNotEdible;
-            if (days < maxDaysBeforeExpDiscount) {
+            if (daysUntilExpiry < maxDaysBeforeExpDiscount) {
                 price *= discountIfNotEdible;
             }
         }
