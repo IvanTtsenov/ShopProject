@@ -11,9 +11,13 @@ public class ReceiptServiceImpl implements ReceiptService {
     public double calculateTotalPrice(Receipt receipt){
         double price = receipt.getTotalPrice();
         for (Goods item : receipt.getGoods()){
-            price += item.getSellingPrice();
+            price += item.getSellingPrice() * item.getQuantity();
         }
         return  price;
+    }
+    @Override
+    public void addGoods(Receipt receipt,Goods good){
+        receipt.getGoods().add(good);
     }
     @Override
     public void serializeObj(Receipt receipt, String filename) throws IOException {

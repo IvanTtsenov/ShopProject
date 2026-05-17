@@ -23,7 +23,7 @@ public class Main {
                 1,
                 true,
                 LocalDate.of(2026, 5, 27),
-                1);
+                5);
 
 //        Goods goods2 = new Goods(
 //                "Bread",
@@ -61,6 +61,12 @@ public class Main {
         CashRegisterService cashRegisterService = new CashRegisterServiceImpl();
         cashRegisterService.addMoney(cashRegister,1000);
         System.out.println(cashRegister.getMoney());
+
+        Receipt receipt1 = new Receipt(cashier1);
+        ReceiptService receiptService = new ReceiptServiceImpl();
+        receiptService.addGoods(receipt1,goods1);
+        System.out.println("Total rpice: ");
+        System.out.println(receiptService.calculateTotalPrice(receipt1));
 
 
 
