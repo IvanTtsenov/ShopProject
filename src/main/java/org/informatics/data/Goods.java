@@ -23,7 +23,6 @@ public class Goods {
         this.isEdible = isEdible;
         this.expiryDate = expiryDate;
         this.quantity = quantity;
-       // setSellingPrice(initialPrice);
     }
 
     public UUID getUuid() {
@@ -50,36 +49,35 @@ public class Goods {
         return sellingPrice;
     }
 
-    public long daysUntilExpiry(){
-        LocalDate today = LocalDate.now();
-        long days = ChronoUnit.DAYS.between(today, this.expiryDate);
-        return days;
+    public void setSellingPrice(double sellingPrice) {
+        this.sellingPrice = sellingPrice;
     }
 
-    public void setSellingPrice(double initialPrice) {
-            if(isExpired()){
-                throw new ExpiredGoodsException(this.name + " has expired on: " + this.expiryDate);
-            }
-            int maxDaysBeforeExpDiscount = 5;
-            double markUpIfEdible = 1.20;
-            double markupIfNotEdible = 1.10;
-            double discountIfEdible = 0.80;
-            double discountIfNotEdible = 0.90;
-            long days = daysUntilExpiry();
-            if (isEdible) {
-                double price = initialPrice * markUpIfEdible;
-                if (days < maxDaysBeforeExpDiscount) {
-                    price *= discountIfEdible;
-                }
-                this.sellingPrice = price;
-            } else {
-                double price = initialPrice * markupIfNotEdible;
-                if (days < maxDaysBeforeExpDiscount) {
-                    price *= discountIfNotEdible;
-                }
-                this.sellingPrice = price;
-            }
-    }
+    //    public long daysUntilExpiry(){
+//        LocalDate today = LocalDate.now();
+//        long days = ChronoUnit.DAYS.between(today, this.expiryDate);
+//        return days;
+//    }
+
+//    public void setSellingPrice(double initialPrice) {
+//            if(isExpired()){
+//                throw new ExpiredGoodsException(this.name + " has expired on: " + this.expiryDate);
+//            }
+//            long days = daysUntilExpiry();
+//            if (isEdible) {
+//                double price = initialPrice * markUpIfEdible;
+//                if (days < maxDaysBeforeExpDiscount) {
+//                    price *= discountIfEdible;
+//                }
+//                this.sellingPrice = price;
+//            } else {
+//                double price = initialPrice * markupIfNotEdible;
+//                if (days < maxDaysBeforeExpDiscount) {
+//                    price *= discountIfNotEdible;
+//                }
+//                this.sellingPrice = price;
+//            }
+//    }
 
     public boolean isEdible() {
         return isEdible;
@@ -105,9 +103,9 @@ public class Goods {
         this.quantity = quantity;
     }
 
-    public boolean isExpired(){
-        return LocalDate.now().isAfter(expiryDate) || LocalDate.now().isEqual(expiryDate);
-    }
+    //public boolean isExpired(){
+        //return LocalDate.now().isAfter(expiryDate) || LocalDate.now().isEqual(expiryDate);
+   // }
 
     @Override
     public boolean equals(Object o) {

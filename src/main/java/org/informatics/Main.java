@@ -2,9 +2,11 @@ package org.informatics;
 
 import org.informatics.data.*;
 import org.informatics.service.CashRegisterService;
+import org.informatics.service.GoodsService;
 import org.informatics.service.ReceiptService;
 import org.informatics.service.ShopService;
 import org.informatics.service.impl.CashRegisterServiceImpl;
+import org.informatics.service.impl.GoodsServiceImpl;
 import org.informatics.service.impl.ReceiptServiceImpl;
 import org.informatics.service.impl.ShopServiceImpl;
 
@@ -57,6 +59,12 @@ public class Main {
 //                true,
 //                LocalDate.of(2026, 12, 31),
 //                8);
+        GoodsService goodsService = new GoodsServiceImpl();
+        goodsService.calculateSellingPrice(goods1);
+        System.out.println("!!!Print Goods:");
+        System.out.println(goods1);
+
+
         Cashier cashier1 = new Cashier("Ivan",2000);
         Cashier cashier2 = new Cashier("Petq",1800);
         Cashier cashier3 = new Cashier("Kalin",1000);
