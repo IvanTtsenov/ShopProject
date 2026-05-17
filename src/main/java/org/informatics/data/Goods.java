@@ -23,7 +23,7 @@ public class Goods {
         this.isEdible = isEdible;
         this.expiryDate = expiryDate;
         this.quantity = quantity;
-        setSellingPrice(initialPrice);
+       // setSellingPrice(initialPrice);
     }
 
     public UUID getUuid() {
@@ -61,17 +61,21 @@ public class Goods {
                 throw new ExpiredGoodsException(this.name + " has expired on: " + this.expiryDate);
             }
             int maxDaysBeforeExpDiscount = 5;
+            double markUpIfEdible = 1.20;
+            double markupIfNotEdible = 1.10;
+            double discountIfEdible = 0.80;
+            double discountIfNotEdible = 0.90;
             long days = daysUntilExpiry();
             if (isEdible) {
-                double price = initialPrice * 1.20;
+                double price = initialPrice * markUpIfEdible;
                 if (days < maxDaysBeforeExpDiscount) {
-                    price *= 0.80;
+                    price *= discountIfEdible;
                 }
                 this.sellingPrice = price;
             } else {
-                double price = initialPrice * 1.10;
+                double price = initialPrice * markupIfNotEdible;
                 if (days < maxDaysBeforeExpDiscount) {
-                    price *= 0.90;
+                    price *= discountIfNotEdible;
                 }
                 this.sellingPrice = price;
             }

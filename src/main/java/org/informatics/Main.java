@@ -62,23 +62,31 @@ public class Main {
         Cashier cashier3 = new Cashier("Kalin",1000);
         Cashier cashier4 = new Cashier("Ivo",1500);
         CashRegister cashRegister = new CashRegister(cashier1,1);
-        System.out.println(cashRegister);
+        System.out.println("!!!!Print cashRegister: ");
         CashRegisterService cashRegisterService = new CashRegisterServiceImpl();
         cashRegisterService.addMoney(cashRegister,1000);
-        System.out.println(cashRegister.getMoney());
+        System.out.println(cashRegister);
 
         Receipt receipt1 = new Receipt(cashier1);
         ReceiptService receiptService = new ReceiptServiceImpl();
         receiptService.addGoods(receipt1,goods1);
         receiptService.addGoods(receipt1,goods2);
-        System.out.println("Total rpice: ");
         receiptService.calculateTotalPrice(receipt1);
+        System.out.println("!!!!Print receipt1:");
         System.out.println(receipt1);
 
         Shop shop = new Shop();
-        System.out.println("Shop stringify:");
         ShopService shopService = new ShopServiceImpl();
         shopService.addCashiers(shop,cashier1);
+        shopService.addDeliveredProduct(shop,goods1);
+        shopService.addDeliveredProduct(shop,goods2);
+        shopService.addReceipt(shop,receipt1);
+        shopService.calculateExpenses(shop);
+        shopService.addSoldProduct(shop,goods1);
+        shopService.addSoldProduct(shop,goods2);
+        shopService.calculateIncome(shop);
+        shopService.calculateProfit(shop);
+        System.out.println("!!!!Print shop");
         System.out.println(shop);
 
 
