@@ -1,8 +1,10 @@
 package org.informatics.data;
 
+import org.informatics.service.CashRegisterService;
+
 import java.util.Objects;
 
-public class CashRegister {
+public class CashRegister  {
     private Cashier cashier;
     private double money;
     private int registerNumber;
