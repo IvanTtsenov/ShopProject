@@ -77,10 +77,13 @@ public class Main {
         System.out.println(cashRegister);
 
         Receipt receipt1 = new Receipt(cashier1);
+        Receipt receipt2 = new Receipt(cashier1);
         ReceiptService receiptService = new ReceiptServiceImpl();
         receiptService.addGoods(receipt1,goods1);
         receiptService.addGoods(receipt1,goods2);
         receiptService.calculateTotalPrice(receipt1);
+        receiptService.writeFile(receipt1);
+        receiptService.writeFile(receipt2);
         System.out.println("!!!!Print receipt1:");
         System.out.println(receipt1);
 

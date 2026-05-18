@@ -40,4 +40,14 @@ public class ReceiptServiceImpl implements ReceiptService {
             return (Receipt) objectInputStream.readObject();
         }
     }
+    @Override
+    public void writeFile(Receipt receipt){
+        try (FileOutputStream fileOutputStream = new FileOutputStream("receipt" + receipt.getIdNumber() + ".txt")) {
+            fileOutputStream.write(receipt.toString().getBytes());
+            System.out.println("Successfully wrote to file.");
+        } catch (IOException e) {
+            System.out.println("Error writing file.");
+            e.printStackTrace();
+        }
+    }
 }

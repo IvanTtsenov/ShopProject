@@ -12,4 +12,5 @@ public interface ReceiptService  {
     public void addGoods(Receipt receipt, Goods good);
     public void serializeObj(Receipt receipt, String filename) throws IOException;
     Receipt deserializeObj(String filename) throws IOException, ClassNotFoundException;
+    public  void writeFile(Receipt receipt);
 }
