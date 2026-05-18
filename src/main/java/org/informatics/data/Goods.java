@@ -1,12 +1,13 @@
 package org.informatics.data;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Goods {
+public class Goods implements Serializable {
     private final UUID uuid;
     private String name;
     private BigDecimal initialPrice;

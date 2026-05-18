@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 public interface ReceiptService  {
     public BigDecimal calculateTotalPrice(Receipt receipt);
-    public void addGoods(Receipt receipt, Goods good);
+    public void addGoods(Receipt receipt, Goods good,BigDecimal itemQty);
     public void serializeObj(Receipt receipt, String filename) throws IOException;
     Receipt deserializeObj(String filename) throws IOException, ClassNotFoundException;
     public  void writeFile(Receipt receipt);

@@ -2,6 +2,7 @@ package org.informatics.service.impl;
 
 import org.informatics.data.Goods;
 import org.informatics.data.Receipt;
+import org.informatics.exceptions.InsufficientQuantityException;
 import org.informatics.service.GoodsService;
 import org.informatics.service.ReceiptService;
 
@@ -25,9 +26,17 @@ public class ReceiptServiceImpl implements ReceiptService {
         return receipt.getTotalPrice();
     }
     @Override
-    public void addGoods(Receipt receipt,Goods good){
-
-        receipt.getGoods().add(good);
+    public void addGoods(Receipt receipt,Goods good,BigDecimal itemQty){
+        if(itemQty.compareTo(good.getQuantity()) > 0){
+            throw new InsufficientQuantityException(
+                    "Insufficient quantity for: " + good.getName() +
+                            " available: " + good.getQuantity() +
+                            " requested: " + itemQty +
+                            " missing: " + itemQty.subtract(good.getQuantity())
+            );
+        }else {
+            receipt.getGoods().add(good);
+        }
     }
     @Override
     public void serializeObj(Receipt receipt, String filename) throws IOException {

@@ -64,6 +64,17 @@ public class Receipt implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Receipt{" +
+                "idNumber=" + idNumber +
+                ", cashier=" + cashier +
+                ", time=" + time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) +
+                ", goods=" + goods +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Receipt receipt = (Receipt) o;
@@ -75,14 +86,4 @@ public class Receipt implements Serializable {
         return Objects.hashCode(idNumber);
     }
 
-    @Override
-    public String toString() {
-        return "Receipt{" +
-                "idNumber=" + idNumber +
-                ", cashier=" + cashier +
-                ", time=" + time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) +
-                ", goods=" + goods +
-                ", totalPrice=" + totalPrice +
-                '}';
-    }
 }
