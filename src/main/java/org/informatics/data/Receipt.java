@@ -67,7 +67,7 @@ public class Receipt implements Serializable {
     public String toString() {
         return "Receipt{" +
                 "idNumber=" + idNumber +
-                ", cashier=" + cashier +
+                ", cashier=" + cashier.getName() +
                 ", time=" + time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) +
                 ", goods=" + goods +
                 ", totalPrice=" + totalPrice +
