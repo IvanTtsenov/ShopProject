@@ -2,6 +2,7 @@ package org.informatics.data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -75,11 +76,15 @@ public class Receipt implements Serializable {
 
     @Override
     public String toString() {
-        return "Receipt{" +
+        String stringifyGoods = "";
+        for (Goods good : goods) {
+            stringifyGoods += "Goods{name='" + good.getName() + "', sellingPrice=" + good.getSellingPrice() + ", quantity=" + good.getQuantity() + "}, ";
+        }
+            return "Receipt{" +
                 "idNumber=" + idNumber +
-                ", cashier=" + cashier +
-                ", time=" + time +
-                ", goods=" + goods +
+                ", cashier=" + cashier.getName() +
+                ", time=" + time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) +
+                ", goods=[" + stringifyGoods + "]" +
                 ", totalPrice=" + totalPrice +
                 '}';
     }

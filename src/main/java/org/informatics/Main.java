@@ -61,6 +61,7 @@ public class Main {
 //                8);
         GoodsService goodsService = new GoodsServiceImpl();
         goodsService.calculateSellingPrice(goods1);
+        goodsService.calculateSellingPrice(goods2);
         System.out.println("!!!Print Goods:");
         System.out.println(goods1);
 
