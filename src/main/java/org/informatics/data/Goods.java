@@ -1,6 +1,7 @@
 package org.informatics.data;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -8,13 +9,12 @@ import java.util.UUID;
 public class Goods {
     private final UUID uuid;
     private String name;
-    private double initialPrice;
-    private double sellingPrice;
-    private boolean isEdible;
+    private BigDecimal initialPrice;
+    private TypeOfGood isEdible;
     private LocalDate expiryDate;
-    private int quantity;
+    private BigDecimal quantity;
 
-    public Goods(String name, double initialPrice, boolean isEdible, LocalDate expiryDate, int quantity) {
+    public Goods(String name, BigDecimal initialPrice, TypeOfGood isEdible, LocalDate expiryDate, BigDecimal quantity) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.initialPrice = initialPrice;
@@ -35,54 +35,12 @@ public class Goods {
         this.name = name;
     }
 
-    public double getInitialPrice() {
+    public BigDecimal getInitialPrice() {
         return initialPrice;
     }
 
-    public void setInitialPrice(double initialPrice) {
+    public void setInitialPrice(BigDecimal initialPrice) {
         this.initialPrice = initialPrice;
-    }
-
-    public double getSellingPrice() {
-        return sellingPrice;
-    }
-
-    public void setSellingPrice(double sellingPrice) {
-        this.sellingPrice = sellingPrice;
-    }
-
-    //    public long daysUntilExpiry(){
-//        LocalDate today = LocalDate.now();
-//        long days = ChronoUnit.DAYS.between(today, this.expiryDate);
-//        return days;
-//    }
-
-//    public void setSellingPrice(double initialPrice) {
-//            if(isExpired()){
-//                throw new ExpiredGoodsException(this.name + " has expired on: " + this.expiryDate);
-//            }
-//            long days = daysUntilExpiry();
-//            if (isEdible) {
-//                double price = initialPrice * markUpIfEdible;
-//                if (days < maxDaysBeforeExpDiscount) {
-//                    price *= discountIfEdible;
-//                }
-//                this.sellingPrice = price;
-//            } else {
-//                double price = initialPrice * markupIfNotEdible;
-//                if (days < maxDaysBeforeExpDiscount) {
-//                    price *= discountIfNotEdible;
-//                }
-//                this.sellingPrice = price;
-//            }
-//    }
-
-    public boolean isEdible() {
-        return isEdible;
-    }
-
-    public void setEdible(boolean edible) {
-        this.isEdible = edible;
     }
 
     public LocalDate getExpiryDate() {
@@ -93,17 +51,33 @@ public class Goods {
         this.expiryDate = expiryDate;
     }
 
-    public int getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 
-    //public boolean isExpired(){
-        //return LocalDate.now().isAfter(expiryDate) || LocalDate.now().isEqual(expiryDate);
-   // }
+    public TypeOfGood getIsEdible() {
+        return isEdible;
+    }
+
+    public void setIsEdible(TypeOfGood isEdible) {
+        this.isEdible = isEdible;
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "uuid=" + uuid +
+                ", name='" + name + '\'' +
+                ", initialPrice=" + initialPrice +
+                ", isEdible=" + isEdible +
+                ", expiryDate=" + expiryDate +
+                ", quantity=" + quantity +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -117,16 +91,4 @@ public class Goods {
         return Objects.hashCode(uuid);
     }
 
-    @Override
-    public String toString() {
-        return "Goods{" +
-                "uuid=" + uuid +
-                ", name='" + name + '\'' +
-                ", initialPrice=" + initialPrice +
-                ", sellingPrice=" + sellingPrice +
-                ", isEdible=" + isEdible +
-                ", expiryDate=" + expiryDate +
-                ", quantity=" + quantity +
-                '}';
-    }
 }

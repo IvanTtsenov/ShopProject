@@ -2,22 +2,31 @@ package org.informatics.service.impl;
 
 import org.informatics.data.Goods;
 import org.informatics.data.Receipt;
+import org.informatics.service.GoodsService;
 import org.informatics.service.ReceiptService;
 
 import java.io.*;
+import java.math.BigDecimal;
 
 public class ReceiptServiceImpl implements ReceiptService {
+    private final GoodsService goodsService;
+
+    public ReceiptServiceImpl(GoodsService goodsService) {
+        this.goodsService = goodsService;
+    }
+
     @Override
-    public double calculateTotalPrice(Receipt receipt){
-        double price = receipt.getTotalPrice();
+    public BigDecimal calculateTotalPrice(Receipt receipt){
+        BigDecimal price = receipt.getTotalPrice();
         for (Goods item : receipt.getGoods()){
-            price += item.getSellingPrice() * item.getQuantity();
+            price = price.add(goodsService.calculateSellingPrice(item).multiply(item.getQuantity()));
         }
         receipt.setTotalPrice(price);
         return receipt.getTotalPrice();
     }
     @Override
     public void addGoods(Receipt receipt,Goods good){
+
         receipt.getGoods().add(good);
     }
     @Override

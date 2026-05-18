@@ -1,6 +1,7 @@
 package org.informatics.data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,14 +13,14 @@ public class Receipt implements Serializable {
     private Cashier cashier;
     private LocalDateTime time;
     private ArrayList<Goods> goods;
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
     public Receipt(Cashier cashier) {
         this.idNumber = counter++;
         this.cashier = cashier;
         this.time = LocalDateTime.now();
         this.goods = new ArrayList<>();
-        this.totalPrice = 0;
+        this.totalPrice = BigDecimal.ZERO;
     }
 
     public long getIdNumber() {
@@ -54,11 +55,11 @@ public class Receipt implements Serializable {
         this.goods = goods;
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return this.totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -76,15 +77,11 @@ public class Receipt implements Serializable {
 
     @Override
     public String toString() {
-        String stringifyGoods = "";
-        for (Goods good : goods) {
-            stringifyGoods += "Goods{name='" + good.getName() + "', sellingPrice=" + good.getSellingPrice() + ", quantity=" + good.getQuantity() + "}, ";
-        }
-            return "Receipt{" +
+        return "Receipt{" +
                 "idNumber=" + idNumber +
-                ", cashier=" + cashier.getName() +
+                ", cashier=" + cashier +
                 ", time=" + time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) +
-                ", goods=[" + stringifyGoods + "]" +
+                ", goods=" + goods +
                 ", totalPrice=" + totalPrice +
                 '}';
     }

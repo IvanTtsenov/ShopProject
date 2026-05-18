@@ -4,11 +4,19 @@ import org.informatics.data.Cashier;
 import org.informatics.data.Goods;
 import org.informatics.data.Receipt;
 import org.informatics.data.Shop;
+import org.informatics.service.GoodsService;
 import org.informatics.service.ShopService;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class ShopServiceImpl implements ShopService {
+    private final GoodsService goodsService;
+
+    public ShopServiceImpl(GoodsService goodsService) {
+        this.goodsService = goodsService;
+    }
+
     @Override
     public void addCashiers(Shop shop,Cashier cashier){
         shop.getCashiers().add(cashier);
@@ -27,37 +35,34 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public double calculateExpenses(Shop shop){
-        double wages = 0;
+    public BigDecimal calculateExpenses(Shop shop){
+        BigDecimal wages = BigDecimal.ZERO;
         for (Cashier cashier : shop.getCashiers()){
-            wages += cashier.getWage();
+            wages = wages.add(cashier.getWage());
         }
 
-        double goodsCost = 0;
-        for (Map.Entry<Goods, Integer> entry : shop.getDeliveredProducts().entrySet()){
+        BigDecimal goodsCost = BigDecimal.ZERO;
+        for (Map.Entry<Goods, BigDecimal> entry : shop.getDeliveredProducts().entrySet()){
             Goods goods = entry.getKey();
-            int quantity = entry.getValue();
-            goodsCost += goods.getInitialPrice() * quantity;
+            BigDecimal quantity = entry.getValue();
+            goodsCost =goodsCost.add(goods.getInitialPrice().multiply(quantity));
         }
-
-        shop.setExpenses(wages + goodsCost);
-        return shop.getExpenses();
+        BigDecimal expenses = wages.add(goodsCost);
+        return expenses;
     }
     @Override
-    public double calculateIncome(Shop shop){
-        double income = 0;
-        for (Map.Entry<Goods, Integer> entry : shop.getSoldProducts().entrySet()){
+    public BigDecimal calculateIncome(Shop shop){
+        BigDecimal income = BigDecimal.ZERO;
+        for (Map.Entry<Goods, BigDecimal> entry : shop.getSoldProducts().entrySet()){
             Goods goods = entry.getKey();
-            int quantity = entry.getValue();
-            income += goods.getSellingPrice() * quantity;
+            BigDecimal quantity = entry.getValue();
+            income =income.add(goodsService.calculateSellingPrice(goods).multiply(quantity));
         }
-        shop.setIncome(income);
-        return shop.getIncome();
+        return income;
     }
     @Override
-    public double calculateProfit(Shop shop){
-        double profit = shop.getIncome() - shop.getExpenses();
-        shop.setProfit(profit);
-        return shop.getProfit();
+    public BigDecimal calculateProfit(Shop shop){
+        BigDecimal profit = calculateIncome(shop).subtract(calculateExpenses(shop));
+        return profit;
     }
 }

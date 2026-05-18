@@ -1,18 +1,20 @@
 package org.informatics.service.impl;
 
 import org.informatics.data.Goods;
+import org.informatics.data.TypeOfGood;
 import org.informatics.exceptions.ExpiredGoodsException;
 import org.informatics.service.GoodsService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class GoodsServiceImpl implements GoodsService {
     int maxDaysBeforeExpDiscount = 5;
-    double markUpIfEdible = 1.20;
-    double markupIfNotEdible = 1.10;
-    double discountIfEdible = 0.80;
-    double discountIfNotEdible = 0.90;
+    BigDecimal markUpIfEdible = BigDecimal.valueOf(1.2);
+    BigDecimal markupIfNotEdible = BigDecimal.valueOf(1.1);
+    BigDecimal discountIfEdible = BigDecimal.valueOf(0.8);
+    BigDecimal discountIfNotEdible = BigDecimal.valueOf(0.9);
 
     @Override
     public boolean isExpired(Goods goods) {
@@ -26,26 +28,25 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public double calculateSellingPrice(Goods goods) {
+    public BigDecimal calculateSellingPrice(Goods goods) {
         if (isExpired(goods)) {
             throw new ExpiredGoodsException(goods.getName() + " has expired on: " + goods.getExpiryDate());
         }
 
         long daysUntilExpiry = daysUntilExpiry(goods);
-        double price;
+        BigDecimal price;
 
-        if (goods.isEdible()) {
-            price = goods.getInitialPrice() * markUpIfEdible;
+        if (goods.getIsEdible() == TypeOfGood.EDIBLE) {
+            price = goods.getInitialPrice().multiply(markUpIfEdible);
             if (daysUntilExpiry < maxDaysBeforeExpDiscount) {
-                price *= discountIfEdible;
+                price =price.multiply(discountIfEdible);
             }
         } else {
-            price = goods.getInitialPrice() * markupIfNotEdible;
+            price = goods.getInitialPrice().multiply(markupIfNotEdible);
             if (daysUntilExpiry < maxDaysBeforeExpDiscount) {
-                price *= discountIfNotEdible;
+                price = price.multiply(discountIfNotEdible);
             }
         }
-        goods.setSellingPrice(price);
-        return goods.getSellingPrice();
+        return price;
     }
 }

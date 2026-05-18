@@ -6,13 +6,11 @@ import java.util.Objects;
 
 public class CashRegister  {
     private Cashier cashier;
-    private double money;
     private int registerNumber;
 
     public CashRegister(Cashier cashier, int registerNumber) {
         this.cashier = cashier;
         this.registerNumber = registerNumber;
-        this.money = 0;
     }
 
     public Cashier getCashier() {
@@ -21,14 +19,6 @@ public class CashRegister  {
 
     public void setCashier(Cashier cashier) {
         this.cashier = cashier;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
     }
 
     public int getRegisterNumber() {
@@ -55,7 +45,6 @@ public class CashRegister  {
     public String toString() {
         return "CashRegister{" +
                 "cashier=" + cashier +
-                ", money=" + money +
                 ", registerNumber=" + registerNumber +
                 '}';
     }

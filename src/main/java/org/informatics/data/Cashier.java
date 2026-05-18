@@ -1,15 +1,16 @@
 package org.informatics.data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Cashier implements Serializable {
     private final UUID uuid;
     private String name;
-    private double wage;
+    private BigDecimal wage;
 
-    public Cashier(String name, double wage) {
+    public Cashier(String name, BigDecimal wage) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.wage = wage;
@@ -27,11 +28,11 @@ public class Cashier implements Serializable {
         this.name = name;
     }
 
-    public double getWage() {
+    public BigDecimal getWage() {
         return wage;
     }
 
-    public void setWage(double wage) {
+    public void setWage(BigDecimal wage) {
         this.wage = wage;
     }
 

@@ -11,6 +11,7 @@ import org.informatics.service.impl.ReceiptServiceImpl;
 import org.informatics.service.impl.ShopServiceImpl;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 //Alt+F12
@@ -21,44 +22,17 @@ public class Main {
     public static void main(String[] args) {
         Goods goods1 = new Goods(
                 "Milk",
-                1,
-                true,
+                BigDecimal.valueOf(1),
+                TypeOfGood.EDIBLE,
                 LocalDate.of(2026, 5, 27),
-                5);
+                BigDecimal.valueOf(5));
         Goods goods2 = new Goods(
                 "Moreni",
-                1.5,
-                true,
+                BigDecimal.valueOf(1.5),
+                TypeOfGood.NOT_EDIBLE,
                 LocalDate.of(2026, 5, 27),
-                2);
+                BigDecimal.valueOf(2));
 
-//        Goods goods2 = new Goods(
-//                "Bread",
-//                2,
-//                false,
-//                LocalDate.of(2025, 11, 15),
-//                5);
-//
-//        Goods goods3 = new Goods(
-//                "Chocolate",
-//                10,
-//                true,
-//                LocalDate.of(2027, 1, 10),
-//                3);
-//
-//        Goods goods4 = new Goods(
-//                "Cheese",
-//                4,
-//                false,
-//                LocalDate.of(2025, 8, 2),
-//                2);
-//
-//        Goods goods5 = new Goods(
-//                "Juice",
-//                7,
-//                true,
-//                LocalDate.of(2026, 12, 31),
-//                8);
         GoodsService goodsService = new GoodsServiceImpl();
         goodsService.calculateSellingPrice(goods1);
         goodsService.calculateSellingPrice(goods2);
@@ -66,19 +40,18 @@ public class Main {
         System.out.println(goods1);
 
 
-        Cashier cashier1 = new Cashier("Ivan",2000);
-        Cashier cashier2 = new Cashier("Petq",1800);
-        Cashier cashier3 = new Cashier("Kalin",1000);
-        Cashier cashier4 = new Cashier("Ivo",1500);
+        Cashier cashier1 = new Cashier("Ivan",BigDecimal.valueOf(2000));
+        Cashier cashier2 = new Cashier("Petq",BigDecimal.valueOf(1800));
+        Cashier cashier3 = new Cashier("Kalin",BigDecimal.valueOf(1000));
+        Cashier cashier4 = new Cashier("Ivo",BigDecimal.valueOf(1500));
         CashRegister cashRegister = new CashRegister(cashier1,1);
         System.out.println("!!!!Print cashRegister: ");
         CashRegisterService cashRegisterService = new CashRegisterServiceImpl();
-        cashRegisterService.addMoney(cashRegister,1000);
         System.out.println(cashRegister);
 
         Receipt receipt1 = new Receipt(cashier1);
         Receipt receipt2 = new Receipt(cashier1);
-        ReceiptService receiptService = new ReceiptServiceImpl();
+        ReceiptService receiptService = new ReceiptServiceImpl(goodsService);
         receiptService.addGoods(receipt1,goods1);
         receiptService.addGoods(receipt1,goods2);
         receiptService.calculateTotalPrice(receipt1);
@@ -91,7 +64,7 @@ public class Main {
         System.out.println(receipt1);
 
         Shop shop = new Shop();
-        ShopService shopService = new ShopServiceImpl();
+        ShopService shopService = new ShopServiceImpl(goodsService);
         shopService.addCashiers(shop,cashier1);
         shopService.addDeliveredProduct(shop,goods1);
         shopService.addDeliveredProduct(shop,goods2);
