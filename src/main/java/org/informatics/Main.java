@@ -82,8 +82,11 @@ public class Main {
         receiptService.addGoods(receipt1,goods1);
         receiptService.addGoods(receipt1,goods2);
         receiptService.calculateTotalPrice(receipt1);
+        System.out.println("WRITE RECEIPT:");
         receiptService.writeFile(receipt1);
         receiptService.writeFile(receipt2);
+        System.out.println("READ RECEIPT:");
+        receiptService.readFile(receipt1);
         System.out.println("!!!!Print receipt1:");
         System.out.println(receipt1);
 

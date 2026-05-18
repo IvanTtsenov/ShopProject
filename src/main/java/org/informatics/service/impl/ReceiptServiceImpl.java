@@ -50,4 +50,14 @@ public class ReceiptServiceImpl implements ReceiptService {
             e.printStackTrace();
         }
     }
+    @Override
+    public void readFile(Receipt receipt) {
+        try (FileInputStream fileInputStream = new FileInputStream("receipt" + receipt.getIdNumber() + ".txt")) {
+            String content = new String(fileInputStream.readAllBytes());
+            System.out.println(content);
+        } catch (IOException e) {
+            System.out.println("Error reading file.");
+            e.printStackTrace();
+        }
+    }
 }
